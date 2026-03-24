@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcdu2yhst0qah"]
+
+[ext_resource type="Texture2D" uid="uid://ctro4tqs13yqd" path="res://Assets/wolf-items.png" id="1_eq2xo"]
+[ext_resource type="Script" uid="uid://dehlx2jnjh70h" path="res://ammo.gd" id="1_s8qum"]
+[ext_resource type="AudioStream" uid="uid://bey864qnpw84h" path="res://Assets/Pickup.wav" id="3_nnfd1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j6nkr"]
+radius = 0.250378
+
+[node name="Ammo" type="Area3D"]
+script = ExtResource("1_s8qum")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.9, 0)
+billboard = 2
+texture = ExtResource("1_eq2xo")
+hframes = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.222009, 0)
+shape = SubResource("SphereShape3D_j6nkr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nnfd1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

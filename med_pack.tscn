@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjvfwbaep3n5h"]
+
+[ext_resource type="Script" uid="uid://gj210oisq2ew" path="res://med_pack.gd" id="1_3xum2"]
+[ext_resource type="Texture2D" uid="uid://c85jq1cqq3taj" path="res://Assets/medpack.png" id="1_06hwp"]
+[ext_resource type="AudioStream" uid="uid://yhy3slmk86s6" path="res://Assets/Health.wav" id="3_3e8js"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2iahr"]
+radius = 0.421031
+
+[sub_resource type="GDScript" id="GDScript_w83sh"]
+script/source = "extends CollisionShape3D
+"
+
+[node name="Med_pack" type="Area3D"]
+script = ExtResource("1_3xum2")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00012042, 0.974427, -0.00176734)
+billboard = 2
+texture = ExtResource("1_06hwp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.226999, 0)
+shape = SubResource("SphereShape3D_2iahr")
+script = SubResource("GDScript_w83sh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3e8js")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
